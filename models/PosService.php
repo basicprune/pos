@@ -21,7 +21,7 @@ class PosService extends DbService
         $nav = $prenav ? $prenav : [];
         if (AuthService::getInstance($w)->loggedIn()) {
             $w->menuLink('pos/', 'Home', $nav);
-            $w->menuLink('pos/ProductsDashboard', 'Product Dashboard', $nav);
+            $w->menuLink('pos/ProductDashboard', 'Product Dashboard', $nav);
         }
 
         $w->ctx("navigation", $nav);

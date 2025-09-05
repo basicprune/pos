@@ -11,8 +11,6 @@ function index_ALL(Web &$w)
     PosService::getInstance($w)->navigation($w, "POS DASHBOARD");
     // $w->ctx("currentUsers", AuditService::getInstance($w)->getLoggedInUsers());
 
-    Html::b('/pos/ProductEdit/' . $Product->id, 'Edit Product Information');
 
-    
 
 }
