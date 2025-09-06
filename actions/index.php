@@ -11,6 +11,8 @@ function index_ALL(Web &$w)
     PosService::getInstance($w)->navigation($w, "POS DASHBOARD");
     // $w->ctx("currentUsers", AuditService::getInstance($w)->getLoggedInUsers());
 
+    $w->ctx("currentUsers", AuditService::getInstance($w)->getLoggedInUsers());
+
 
 
 }
