@@ -10,7 +10,7 @@ function CustomerEdit_GET(Web $w){
     if (!empty($p['id'])) 
    {
         $Customer = PosService::getInstance($w)->GetCustomerForId($p['id']);
-        $post_url = '/pos/CustomerEdit/' . $p['id'];
+        $post_url = '/pos-edit/CustomerEdit/' . $p['id'];
 
 
        
@@ -18,7 +18,7 @@ function CustomerEdit_GET(Web $w){
     else 
    {
         $Customer = new CustomerItem($w);
-        $post_url = '/pos/CustomerEdit/';
+        $post_url = '/pos-edit/CustomerEdit/';
    }
 
     
@@ -46,12 +46,12 @@ function CustomerEdit_POST(Web $w){
  if (!empty($p['id'])) 
    {
         $Customer = PosService::getInstance($w)->GetCustomerForId($p['id']);
-        $post_url = '/pos/CustomerEdit/' .$p['id'];
+        $post_url = '/pos-edit/CustomerEdit/' .$p['id'];
    }
     else 
    {
         $Customer = new CustomerItem($w);
-        $post_url = '/pos/CustomerEdit/';
+        $post_url = '/pos-edit/CustomerEdit/';
    }
 
     $Customer->firstname = $_POST['customerfirst'];
@@ -62,7 +62,7 @@ function CustomerEdit_POST(Web $w){
     $Customer->insertOrUpdate();
         
     $msg = "Product Data Saved";
-    $w->msg($msg, "/pos/CustomerDashboard");
+    $w->msg($msg, "/pos-dashboard/CustomerDashboard");
 
 
 }

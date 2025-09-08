@@ -6,8 +6,8 @@ public $customerid;
 public $invoiceid;
 public $itemid;
 public $status;
-public $diagnosticpath;
-public $privatepath;
+public $diagnosticnote;
+public $privatenote;
 
 
 }

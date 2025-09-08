@@ -57,14 +57,24 @@ class PosInitialmigration extends CmfiveMigration
                 ->addColumn('invoiceid', 'string')
                 ->addColumn('itemid', 'string')
                 ->addColumn('status', 'string')
-                ->addColumn('diagnosticpath', 'string')
-                ->addColumn('privatepath', 'string')
+                ->addColumn('diagnosticnote', 'string')
+                ->addColumn('privatenote', 'string')
                 ->addCmfiveParameters()
                 ->create();
         }
 
         if (!$this->hasTable("category_item")) {
             $this->table("category_item", [
+                "id" => false,
+                "primary_key" => "id"
+            ])->addColumn($column)
+                ->addColumn('title', 'string')
+                ->addCmfiveParameters()
+                ->create();
+        }
+
+        if (!$this->hasTable("status_item")) {
+            $this->table("status_item", [
                 "id" => false,
                 "primary_key" => "id"
             ])->addColumn($column)

@@ -10,12 +10,12 @@ function CategoryEdit_GET(Web $w){
     if (!empty($p['id'])) 
    {
         $Category = PosService::getInstance($w)->GetCategoryForId($p['id']);
-        $post_url = '/pos/CategoryEdit/' . $p['id'];
+        $post_url = '/pos-edit/CategoryEdit/' . $p['id'];
    }
     else 
    {
         $Category = new CategoryItem($w);
-        $post_url = '/pos/CategoryEdit/';
+        $post_url = '/pos-edit/CategoryEdit/';
    }
    
 
@@ -45,12 +45,12 @@ function CategoryEdit_POST(Web $w){
  if (!empty($p['id'])) 
    {
         $Category = PosService::getInstance($w)->GetCategoryForId($p['id']);
-        $post_url = '/pos/CategoryEdit/' .$p['id'];
+        $post_url = '/pos-edit/CategoryEdit/' .$p['id'];
    }
     else 
    {
         $Category = new CategoryItem($w);
-        $post_url = '/pos/CategoryEdit/';
+        $post_url = '/pos-edit/CategoryEdit/';
    }
 
     $Category->title = $_POST['categorytitle'];
@@ -59,7 +59,7 @@ function CategoryEdit_POST(Web $w){
     $Category->insertOrUpdate();
         
     $msg = "New Category Added";
-    $w->msg($msg, "/pos");
+    $w->msg($msg, "/pos-dashboard/CategoryDashboard");
 
 
 }

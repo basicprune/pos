@@ -23,7 +23,7 @@ function ProductDashboard_ALL(Web &$w)
         foreach ($Products as $Product) {
             $row = [];
             $row[] = $Product->name;
-            $row[] = $Product->category;
+            $row[] = PosService::getInstance($w)->GetCategoryForId($Product->category)->title;
             $row[] = $Product->sku;
             $row[] = $Product->cost;
             $row[] = $Product->retail;
@@ -31,8 +31,8 @@ function ProductDashboard_ALL(Web &$w)
             
 
             $actions = [];
-            $actions[] = Html::b('/pos/ProductEdit/' . $Product->id, 'Edit Product Information');
-            $actions[] = Html::b('/pos/ProductDelete/' . $Product->id, 'Delete', 'Are you sure you want to delete this product?', null, false, class: "btn-danger");
+            $actions[] = Html::b('/pos-edit/ProductEdit/' . $Product->id, 'Edit Product Information');
+            $actions[] = Html::b('/pos-delete/ProductDelete/' . $Product->id, 'Delete', 'Are you sure you want to delete this product?', null, false, class: "btn-danger");
 
             $row[] = implode($actions);
             $table[] = $row;

@@ -3,7 +3,7 @@
 class PosService extends DbService
 {
 
-
+    #region GetItems
     public function GetProductForId($id){
     return $this->GetObject('ProductItem', $id);
     }
@@ -32,10 +32,51 @@ class PosService extends DbService
     return $this->GetObject('CategoryItem', $id);
     }
 
+
     public function GetAllCategories(){
         return $this->GetObjects('CategoryItem', ['is_deleted'=>0]);
     }
 
+    public function GetStatusForId($id){
+    return $this->GetObject('StatusItem', $id);
+    }
+
+
+    public function GetAllStatuses(){
+        return $this->GetObjects('StatusItem', ['is_deleted'=>0]);
+    }
+
+    #endregion
+
+    public function GetSelectStatus($status){
+        
+        if ($status == 0){
+            return 'Cancled';
+        }else if( $status == 1){
+            return 'Ongoing';
+        }else if( $status == 2){
+            return 'Completed';
+        }
+        
+    }
+
+    public function SelectStatus($status){
+
+        if ($status == 0){
+            return 'Cancled';
+        }else if( $status == 1){
+            return 'Ongoing';
+        }else if( $status == 2){
+            return 'Completed';
+        }
+    }
+
+    public function GetCustomerFullName($id){
+
+        $customer = $this->GetObject('CustomerItem', $id);
+
+        return $customer->firstname . ' '. $customer->lastname;
+    }
     public function navigation(Web $w, $title = null, $prenav = null)
     {
         if ($title) {
@@ -45,8 +86,10 @@ class PosService extends DbService
         $nav = $prenav ? $prenav : [];
         if (AuthService::getInstance($w)->loggedIn()) {
             $w->menuLink('pos/', 'Home', $nav);
-            $w->menuLink('pos/ProductDashboard', 'Product Dashboard', $nav);
-            $w->menuLink('pos/CustomerDashboard', 'Customer Dashboard', $nav);
+            $w->menuLink('pos-dashboard/ProductDashboard', 'Product Dashboard', $nav);
+            $w->menuLink('pos-dashboard/CustomerDashboard', 'Customer Dashboard', $nav);
+            $w->menuLink('pos-dashboard/CategoryDashboard', 'Category Dashboard', $nav);
+            $w->menuLink('pos-dashboard/TicketDashboard', 'Ticket Dashboard', $nav);
         }
 
         $w->ctx("navigation", $nav);

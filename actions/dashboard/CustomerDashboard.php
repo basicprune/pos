@@ -8,7 +8,7 @@ function CustomerDashboard_ALL(Web &$w)
     
     $w->setLayout('layout-bootstrap-5');
  
-    PosService::getInstance($w)->navigation($w, "Product Dashboard");
+    PosService::getInstance($w)->navigation($w, "Customer Dashboard");
     // $w->ctx("currentUsers", AuditService::getInstance($w)->getLoggedInUsers());
 
     $Customers = PosService::getInstance($w)->GetAllCustomers();
@@ -30,10 +30,10 @@ function CustomerDashboard_ALL(Web &$w)
             
 
             $actions = [];
-            $actions[] = Html::b('/pos/CustomerEdit/' . $Customer->id, 'Edit Product Information');
-            $actions[] = Html::b('/pos/CustomerDelete/' . $Customer->id, 'Delete', 'Are you sure you want to delete this Customer?', null, false, class: "btn-danger");
+            $actions[] = Html::b('/pos-edit/CustomerEdit/' . $Customer->id, 'Edit Product Information');
+            $actions[] = Html::b('/pos-delete/CustomerDelete/' . $Customer->id, 'Delete', 'Are you sure you want to delete this Customer?', null, false, class: "btn-danger");
 
-            $row[] = implode($actions);
+            $row[] = implode($actions); 
             $table[] = $row;
         }
     }

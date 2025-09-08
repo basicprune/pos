@@ -1,4 +1,5 @@
 <?php
+use Html\Form\Select;
 function ProductEdit_GET(Web $w){
     $w->setLayout('layout-bootstrap-5');
 
@@ -10,7 +11,7 @@ function ProductEdit_GET(Web $w){
     if (!empty($p['id'])) 
    {
         $Product = PosService::getInstance($w)->GetProductForId($p['id']);
-        $post_url = '/pos/ProductEdit/' . $p['id'];
+        $post_url = '/pos-edit/ProductEdit/' . $p['id'];
 
 
        
@@ -18,7 +19,7 @@ function ProductEdit_GET(Web $w){
     else 
    {
         $Product = new ProductItem($w);
-        $post_url = '/pos/ProductEdit/';
+        $post_url = '/pos-edit/ProductEdit/';
    }
 
     
@@ -28,7 +29,12 @@ function ProductEdit_GET(Web $w){
        "Site Details" => [
            [
                ["Product Name", "text", "productname", $Product->name],
-               ["Category", "text", "productcategory", $Product->category],
+                (new Select([
+                    "id|name" => "productcategory",
+                    "label" => "Category",
+                    "style" => "width: 100%"
+                ]))
+                ->setOptions(PosService::getInstance($w)->GetAllCategories()),
                ["Sku", "text", "productsku", $Product->sku],
                ["Cost", "text", "productcost", $Product->cost],
                ["Retail", "text", "productretail", $Product->retail],
@@ -47,12 +53,12 @@ function ProductEdit_POST(Web $w){
  if (!empty($p['id'])) 
    {
         $Product = PosService::getInstance($w)->GetProductForId($p['id']);
-        $post_url = '/pos/ProductEdit/' .$p['id'];
+        $post_url = '/pos-edit/ProductEdit/' .$p['id'];
    }
     else 
    {
         $Product = new ProductItem($w);
-        $post_url = '/pos/ProductEdit/';
+        $post_url = '/pos-edit/ProductEdit/';
    }
 
     $Product->Name = $_POST['productname'];
@@ -64,7 +70,7 @@ function ProductEdit_POST(Web $w){
     $Product->insertOrUpdate();
         
     $msg = "Product Data Saved";
-    $w->msg($msg, "/pos/ProductDashboard");
+    $w->msg($msg, "/pos-dashboard/ProductDashboard");
 
 
 }

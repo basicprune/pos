@@ -1,5 +1,5 @@
 <?php
-function CustomerDelete_ALL(Web $w){
+function ProductDelete_ALL(Web $w){
 
     $p = $w->pathMatch("id");
 
@@ -8,6 +8,6 @@ function CustomerDelete_ALL(Web $w){
 
     $Product->insertOrUpdate();
 
-    $msg = "Customer Deleted";
-    $w->msg($msg, "/pos/CustomerDashboard");
+    $msg = "Product Deleted";
+    $w->msg($msg, "/pos-dashboard/ProductDashboard");
 }
