@@ -21,9 +21,13 @@ function TicketDashboard_ALL(Web &$w)
     $tableHeaders = ['Ticket ID', 'Customer', 'Status', 'Actions'];
     if (!empty($Tickets)) {
         foreach ($Tickets as $Ticket) {
+            $Customer = PosService::getInstance($w)->GetCustomerForId($Ticket->customerid);
+            $CustomerName = $Customer->firstname . ' '. $Customer->lastname;
+
+
             $row = [];
             $row[] = 'T-' . $Ticket->id;
-            $row[] = PosService::getInstance($w)->GetCustomerFullName($Ticket->id);
+            $row[] = $CustomerName;
             $row[] = PosService::getInstance($w)->GetStatusForId($Ticket->status)->title;
             
             

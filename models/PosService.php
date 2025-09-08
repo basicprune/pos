@@ -77,6 +77,11 @@ class PosService extends DbService
 
         return $customer->firstname . ' '. $customer->lastname;
     }
+
+    public function GetAllOpenTickets(){
+        return $this->GetObjects('TicketItem', ['status'=>2]);
+    }
+
     public function navigation(Web $w, $title = null, $prenav = null)
     {
         if ($title) {
