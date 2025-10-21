@@ -5,7 +5,6 @@ function CustomerEdit_GET(Web $w){
     $p = $w->pathMatch("id");
     $w->ctx("title","Add Customer");
 
-    var_dump($p['id']);
 
     if (!empty($p['id'])) 
    {
@@ -54,8 +53,9 @@ function CustomerEdit_POST(Web $w){
         $post_url = '/pos-edit/CustomerEdit/';
    }
 
-    $Customer->firstname = $_POST['customerfirst'];
-    $Customer->lastname = $_POST['customerlast'];
+    $Customer->firstname = preg_replace('/\s+/', '', $_POST['customerfirst']);
+    $Customer->lastname = preg_replace('/\s+/', '', $_POST['customerfirst']);
+    $Customer->fullname = $Customer->firstname . ' ' . $Customer->lastname;
     $Customer->email = $_POST['customeremail'];
     $Customer->phone = $_POST['customerphone'];
     

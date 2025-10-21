@@ -1,5 +1,6 @@
 <?php
 use Html\Form\Select;
+use Html\Form\Html5Autocomplete;
 
 function TicketEdit_GET(Web $w){
     $w->setLayout('layout-bootstrap-5');
@@ -7,15 +8,10 @@ function TicketEdit_GET(Web $w){
     $p = $w->pathMatch("id");
     $w->ctx("title","Add Ticket");
 
-    var_dump($p['id']);
-
     if (!empty($p['id'])) 
    {
         $Ticket = PosService::getInstance($w)->GetTicketForId($p['id']);
-        $post_url = '/pos-edit/TicketEdit/' . $p['id'];
-
-
-       
+        $post_url = '/pos-edit/TicketEdit/' . $p['id'];       
    }
     else 
    {
@@ -31,15 +27,18 @@ function TicketEdit_GET(Web $w){
 
             //    ["Phone", "text", "ticketdiagnosticpath", $Ticket->diagnosticpath],
             //    ["Phone", "text", "ticketprivatepath", $Ticket->privatepath],
+    $Customers = PosService::getInstance($w)->GetAllCustomers();
     $form = [
        "Ticket Details" => [
            [
-            (new Select([
+            (new Html5Autocomplete([
                     "id|name" => "customer",
                     "label" => "Customer",
-                    "style" => "width: 100%"
-                ]))
-                ->setOptions(PosService::getInstance($w)->GetAllCustomers()),
+                    "placeholder" => "Search",
+                    "value" => !empty($Ticket->customerid) ? $Ticket->customerid : null,
+                    "source" => $w->localUrl("/pos-ajax/ajaxSearch"),
+                    "minItems" => 2,
+            ])),
                (new Select([
                     "id|name" => "status",
                     "label" => "Status",

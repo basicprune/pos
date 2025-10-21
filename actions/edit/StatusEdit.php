@@ -5,7 +5,6 @@ function StatusEdit_GET(Web $w){
     $p = $w->pathMatch("id");
     $w->ctx("title","Add Status");
 
-    var_dump($p['id']);
 
     if (!empty($p['id'])) 
    {

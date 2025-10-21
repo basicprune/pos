@@ -78,6 +78,17 @@ class PosService extends DbService
         return $customer->firstname . ' '. $customer->lastname;
     }
 
+    public function GetCustomersForSelect($customers){
+        if ($customers == null){
+            $customers = $this->GetAllCustomers();
+        }
+        
+        $customernames = [];
+        foreach($customers as $customer){
+            
+        }
+    }
+
     public function GetAllOpenTickets(){
         return $this->GetObjects('TicketItem', ['status'=>2]);
     }

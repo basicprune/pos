@@ -18,6 +18,7 @@ class PosInitialmigration extends CmfiveMigration
                 ->addColumn('name', 'string')
                 ->addColumn('category', 'string')
                 ->addColumn('sku', 'string')
+                ->addColumn('quantity', 'string',['null' => true])
                 ->addMoneyColumn('cost')
                 ->addMoneyColumn('retail')
                 ->addCmfiveParameters()
@@ -31,6 +32,7 @@ class PosInitialmigration extends CmfiveMigration
             ])->addColumn($column)
                 ->addColumn('firstname', 'string')
                 ->addColumn('lastname', 'string')
+                ->addColumn('fullname', 'string')
                 ->addColumn('email', 'string')
                 ->addColumn('phone', 'string')
                 ->addCmfiveParameters()
@@ -82,6 +84,18 @@ class PosInitialmigration extends CmfiveMigration
                 ->addCmfiveParameters()
                 ->create();
         }
+
+        if (!$this->hasTable("parts_item")) {
+            $this->table("parts_item", [
+                "id" => false,
+                "primary_key" => "id"
+            ])->addColumn($column)
+                ->addColumn('productitem_id', 'string')
+                ->addColumn('is_part', 'boolean')
+                ->addColumn('is_item', 'boolean')
+                ->addCmfiveParameters()
+                ->create();
+        }
     }
 
     public function down()
@@ -91,6 +105,7 @@ class PosInitialmigration extends CmfiveMigration
         $this->hasTable('invoice_item') ? $this->dropTable('invoice_item') : null;
         $this->hasTable('ticket_item') ? $this->dropTable('ticket_item') : null;
         $this->hasTable('category_item') ? $this->dropTable('category_item') : null;
+        $this->hasTable('parts_item') ? $this->dropTable('parts_item') : null;
         // DOWN
     }
 

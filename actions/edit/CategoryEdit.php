@@ -5,8 +5,6 @@ function CategoryEdit_GET(Web $w){
     $p = $w->pathMatch("id");
     $w->ctx("title","Add Category");
 
-    var_dump($p['id']);
-
     if (!empty($p['id'])) 
    {
         $Category = PosService::getInstance($w)->GetCategoryForId($p['id']);

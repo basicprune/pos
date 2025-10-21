@@ -1,0 +1,12 @@
+<?php
+class NameItem extends DbObject {
+
+
+public $Example;
+public $dt_Example;
+// public $Example;
+// public $Example;
+
+
+
+}
